@@ -1,0 +1,73 @@
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alert-rules:/etc/prometheus/rules
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=15d # Giữ lại dữ liệu trong 15 ngày
+      - --storage.tsdb.path=data/ # Lưu trữ dữ liệu trong thư mục data
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - ./grafana/dashboards/:/var/lib/grafana/dashboards/
+    env_file:
+      - .grafana.secret
+    networks:
+      - monitoring
+
+  alert-manager:
+    image: prom/alertmanager
+    container_name: alert-manager
+    ports:
+      - "9093:9093"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./alertmanager:/etc/alertmanager
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+    networks:
+      - monitoring
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - monitoring
+  
+  tempo:
+    image: grafana/tempo
+    container_name: tempo
+    ports:
+      - "4318:4318"   # OTLP HTTP
+      - "3200:3200" # Tempo UI
+    command: -config.file=/etc/tempo.yaml
+    volumes:
+      - ./tempo/tempo.yml:/etc/tempo.yaml
+      - ./tempo/data:/tmp/tempo
+    networks:
+      - monitoring
+      
+networks:
+  monitoring:
+    external: true

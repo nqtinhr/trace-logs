@@ -1,0 +1,27 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ["alertname"]
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: "email"
+
+receivers:
+  - name: "email"
+    email_configs:
+      - to: "itnetwork102@gmail.com"
+        from: "itnetwork102@gmail.com"
+        smarthost: "smtp.gmail.com:587"
+        auth_identity: "itnetwork102@gmail.com"
+        auth_username: "itnetwork102@gmail.com"
+        auth_password: "fckg rqiy ehvq yjrk"  # app password
+        require_tls: true
+        headers:
+          Subject: '[ALERT] {{ .CommonLabels.alertname }}'
+        html: |
+          <p><b>Alert:</b> {{ .CommonLabels.alertname }}</p>
+          <p><b>Status:</b> {{ .Status }}</p>
+          <p><b>Instance:</b> {{ .CommonLabels.instance }}</p>
+          <p><b>Summary:</b> {{ .Annotations.summary }}</p>
