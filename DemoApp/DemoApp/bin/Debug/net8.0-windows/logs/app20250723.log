@@ -1,132 +1,70 @@
-2025-07-23 13:58:51.772 +07:00 [INF] App initialized
-2025-07-23 13:58:53.269 +07:00 [INF] StartApp button clicked. traceId=2532bf9c3a08b0d74dbf290705e47b37 spanId=dc5952a0231b0aa7
-2025-07-23 13:59:37.604 +07:00 [INF] App initialized
-2025-07-23 13:59:39.211 +07:00 [INF] StartApp button clicked. traceId=dcbf589b59aa2aeafa482a7fc3c7993c spanId=f8a630ec580ca8fe
-2025-07-23 14:00:48.377 +07:00 [INF] App initialized
-2025-07-23 14:00:50.793 +07:00 [INF] StartApp button clicked. traceId=3bb6a27482b1851c399bae9966ead206 spanId=4b5c9554924ff77f
-2025-07-23 14:06:12.880 +07:00 [INF] App initialized
-2025-07-23 14:06:14.348 +07:00 [INF] StartApp button clicked. traceId=d925c65173ec8be6209ee67a80867416 spanId=c6c3c800ea81c10c
-2025-07-23 14:07:35.387 +07:00 [INF] App initialized
-2025-07-23 14:07:37.518 +07:00 [INF] StartApp button clicked. traceId=8abd10e077cf15ef9457069419e9ca20 spanId=90ec9235723c7ee7
-2025-07-23 14:19:02.047 +07:00 [INF] App initialized
-2025-07-23 14:19:04.609 +07:00 [INF] StartApp button clicked. traceId=08071abecdd6f927691d7b9873616425 spanId=ffd193dfc8db2266
-2025-07-23 14:19:37.812 +07:00 [INF] App initialized
-2025-07-23 14:19:39.714 +07:00 [INF] StartApp button clicked. traceId=d6c13048165d5eba366684981b97d7f6 spanId=b990db946302da89
-2025-07-23 14:20:04.448 +07:00 [ERR] Simulated exception occurred. traceId=0173b2d70da3165a38c0dbe3be763ffd spanId=04051b9f19fbedf6
+2025-07-23 19:32:22.472 +07:00 [INF] App initialized
+2025-07-23 19:32:26.388 +07:00 [INF] StartApp button clicked. traceId=32aa1ce10da3c6b82b8992972df36f17 spanId=e806ebb6abb7bb0e
+2025-07-23 20:38:54.888 +07:00 [INF] App initialized
+2025-07-23 20:38:56.730 +07:00 [ERR] Simulated exception occurred. traceId=00a504417533ac8c2396d3606444fb72 spanId=039038f7c2523ff2
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 171
-2025-07-23 14:21:11.007 +07:00 [INF] App initialized
-2025-07-23 14:21:12.601 +07:00 [ERR] Simulated exception occurred. traceId=38fe341e50dc1c4132d982829843ba97 spanId=49b35d63e267abea
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 169
+2025-07-23 20:44:44.507 +07:00 [INF] App initialized
+2025-07-23 20:44:47.860 +07:00 [INF] StartApp button clicked. traceId=db82bf6a86fe5bc0954191bb011a3493 spanId=1310e38fa547b167
+2025-07-23 20:45:19.053 +07:00 [INF] App initialized
+2025-07-23 20:45:20.980 +07:00 [ERR] Simulated exception occurred. traceId=20935d744c91af6703f686b91de2e1e3 spanId=04fb9eccbc28e3bf
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 165
-2025-07-23 14:22:03.965 +07:00 [INF] App initialized
-2025-07-23 14:22:07.142 +07:00 [INF] StartApp button clicked. traceId=a6db032a97bc95e2f4ba147535e2d0bb spanId=772acb16f66d00db
-2025-07-23 14:22:08.336 +07:00 [ERR] Failed to load file. traceId=4b08fecc2cb5b89fde370fbbbf67e7e8 spanId=a6f5920ac7996a3f
-System.IO.FileNotFoundException: Could not find file 'C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\bin\Debug\net8.0-windows\logs\test.txt'.
-File name: 'C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\bin\Debug\net8.0-windows\logs\test.txt'
-   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
-   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
-   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
-   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
-   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
-   at System.IO.File.ReadAllText(String path, Encoding encoding)
-   at DemoApp.Form1.btnLoadFile_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 96
-2025-07-23 14:23:33.602 +07:00 [INF] App initialized
-2025-07-23 14:23:35.481 +07:00 [INF] StartApp button clicked. traceId=aad241449b3ea7aaa290d2d3236d15cf spanId=54a239c99da990f4
-2025-07-23 14:23:38.953 +07:00 [INF] StartApp button clicked. traceId=2b5df8c2540a4c66455ca79c1c837aec spanId=40afdbcc927bed07
-2025-07-23 14:24:28.295 +07:00 [INF] App initialized
-2025-07-23 14:24:34.621 +07:00 [ERR] Simulated exception occurred. traceId=25c909e9d33e0d318ec04a1dfcd6a7fc spanId=e5fc9ee1d87caed7
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 169
+2025-07-23 20:45:23.556 +07:00 [INF] StartApp button clicked. traceId=26643c2389874c34658e9afff7011bfe spanId=132e408031c5888a
+2025-07-23 20:47:12.471 +07:00 [INF] App initialized
+2025-07-23 20:47:15.171 +07:00 [INF] StartApp button clicked. traceId=b166834860fe3127b9a117a2baf97507 spanId=4313ed33d5423fe6
+2025-07-23 20:50:22.328 +07:00 [INF] Saved file at C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\bin\Debug\net8.0-windows\logs\test.txt in 2ms, traceId=6283ae133f54808553e753598dab10f8, spanId=315fa39ac60872f1
+2025-07-23 20:50:28.274 +07:00 [ERR] Simulated exception occurred. traceId=993d125ebe9392dc72a5d9e16eb9f2bc spanId=b0d1c608ce59e45d
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 165
-2025-07-23 14:25:10.602 +07:00 [INF] App initialized
-2025-07-23 14:25:12.585 +07:00 [INF] StartApp button clicked. traceId=5afd4b17a071ce7a3bec2a0c6279fcdb spanId=39b766acf1efd474
-2025-07-23 14:25:52.989 +07:00 [INF] App initialized
-2025-07-23 14:25:56.113 +07:00 [INF] StartApp button clicked. traceId=80c3687afa4d588f29e79c2922f16977 spanId=83bd33351ef85738
-2025-07-23 14:26:25.128 +07:00 [INF] App initialized
-2025-07-23 14:26:37.551 +07:00 [INF] StartApp button clicked.
-2025-07-23 14:27:05.724 +07:00 [INF] App initialized
-2025-07-23 14:27:15.419 +07:00 [ERR] Simulated exception occurred. traceId=92dfe160c2dce1ee53624a9a694cd36c spanId=8eb3ec725bd4ffb4
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 169
+2025-07-23 20:50:44.098 +07:00 [INF] App shutting down
+2025-07-23 20:56:10.413 +07:00 [INF] App initialized
+2025-07-23 20:56:19.784 +07:00 [INF] App initialized
+2025-07-23 20:56:22.255 +07:00 [ERR] Simulated exception occurred. traceId=f3ab4458b7f01597bfd80ceef7c802e7 spanId=4a0c0b5d49d433e4
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 165
-2025-07-23 14:27:26.859 +07:00 [INF] StartApp button clicked.
-2025-07-23 14:28:09.669 +07:00 [INF] App initialized
-2025-07-23 14:28:30.431 +07:00 [INF] StartApp button clicked.
-2025-07-23 14:28:31.727 +07:00 [ERR] Failed to load file. traceId=fdd2412b110c90920a85bdab7e16406d spanId=d19e6336b1126f29
-System.IO.FileNotFoundException: Could not find file 'C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\bin\Debug\net8.0-windows\logs\test.txt'.
-File name: 'C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\bin\Debug\net8.0-windows\logs\test.txt'
-   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
-   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
-   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
-   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
-   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
-   at System.IO.File.ReadAllText(String path, Encoding encoding)
-   at DemoApp.Form1.btnLoadFile_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 96
-2025-07-23 14:29:14.642 +07:00 [INF] App initialized
-2025-07-23 14:29:17.134 +07:00 [ERR] Simulated exception occurred.  traceId=ad6de7e80fa85d2405ac46102c628297 spanId=efa89fe7479af4d0
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 169
+2025-07-23 21:10:32.699 +07:00 [INF] App initialized
+2025-07-23 21:10:34.799 +07:00 [ERR] Simulated exception occurred. traceId=fca848e1fad354f0bb5ae8593a67fb85 spanId=a2a28b01298092af
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 165
-2025-07-23 14:30:13.877 +07:00 [INF] App initialized
-2025-07-23 14:30:16.082 +07:00 [INF] StartApp button clicked. traceId=9c0a1446d0938fd504ab2b1f7d697e37 spanId=2692ab883921b447
-2025-07-23 14:35:27.963 +07:00 [INF] App initialized
-2025-07-23 14:35:29.589 +07:00 [INF] StartApp button clicked.
-2025-07-23 14:36:35.653 +07:00 [INF] App initialized
-2025-07-23 14:36:37.787 +07:00 [INF] StartApp button clicked.
-2025-07-23 14:37:22.860 +07:00 [ERR] Simulated exception occurred. traceId=1d8719277330844238740249e6c99df1 spanId=d30347b62074bb8a
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 169
+2025-07-23 21:13:08.022 +07:00 [INF] StartApp button clicked. traceId=21733ab8e057d289eecd4a129dcb4e1f spanId=5f0db357222e9f54
+2025-07-23 21:18:46.572 +07:00 [INF] App initialized
+2025-07-23 21:18:48.322 +07:00 [INF] StartApp button clicked. traceId=548c0bec41de67cd257cd3fee94a153f spanId=4fc03608223d4a92
+2025-07-23 21:28:38.775 +07:00 [INF] App initialized
+2025-07-23 21:28:41.469 +07:00 [ERR] Simulated exception occurred. traceId=e1c9647c6659c756cb0e7ce8816b7fa1 spanId=c03a13c6c1a00b61
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 164
-2025-07-23 14:37:42.339 +07:00 [INF] App initialized
-2025-07-23 14:37:43.816 +07:00 [ERR] Simulated exception occurred. traceId=77e4d0e9a9c7131cf479cf17c4d492c8 spanId=46817c58acf0a875
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 172
+2025-07-23 21:49:35.006 +07:00 [INF] App initialized
+2025-07-23 21:49:52.920 +07:00 [INF] StartApp button clicked. traceId=28298b057afc0539536e4c064611c4b1 spanId=7f856b22827bae83
+2025-07-23 22:06:33.128 +07:00 [INF] App initialized
+2025-07-23 22:06:34.876 +07:00 [ERR] Simulated exception occurred. traceId=260586c5ae5f591c4ab8ca7b49003768 spanId=484d45e25bb052b9
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 164
-2025-07-23 14:42:52.033 +07:00 [INF] App initialized
-2025-07-23 14:42:54.500 +07:00 [INF] StartApp button clicked. 561fae9c052c1f174a2004b467baa2e6 - 964011ed8ca7aea9
-2025-07-23 14:44:54.464 +07:00 [INF] App initialized
-2025-07-23 14:44:56.362 +07:00 [INF] StartApp button clicked
-2025-07-23 14:46:34.714 +07:00 [INF] App initialized
-2025-07-23 14:46:37.049 +07:00 [INF] StartApp button clicked. traceId=9451f61b8861bb64732a26aa954b1029 spanId=bf37de8043de307f
-2025-07-23 14:53:38.726 +07:00 [INF] App initialized
-2025-07-23 14:53:41.502 +07:00 [INF] App shutting down
-2025-07-23 14:59:46.790 +07:00 [INF] App initialized
-2025-07-23 14:59:51.328 +07:00 [INF] StartApp button clicked. traceId=54cb5ea7353edd9863c7f0afdc72cd1e spanId=2fc65e2c1baca14e
-2025-07-23 14:59:52.790 +07:00 [INF] App shutting down
-2025-07-23 15:07:14.209 +07:00 [INF] App initialized
-2025-07-23 15:07:17.036 +07:00 [INF] StartApp button clicked. traceId=8bec1550a0d8562c2dfb8803cb512bb1 spanId=68357f2ea1738947
-2025-07-23 15:10:45.468 +07:00 [INF] App initialized
-2025-07-23 15:10:47.372 +07:00 [ERR] Simulated exception occurred. traceId=bc2747b6fb1fb41a6cac1f579c22d490 spanId=9261e3f5b2a867a3
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 172
+2025-07-23 22:07:25.295 +07:00 [INF] App initialized
+2025-07-23 22:07:27.004 +07:00 [INF] StartApp button clicked. traceId=6d57ef3a852d39a86fe3096e4ccbf851 spanId=67bdecc91f917473
+2025-07-23 22:08:47.252 +07:00 [INF] App initialized
+2025-07-23 22:08:48.896 +07:00 [INF] StartApp button clicked. traceId=0b0e8e183011e09b7acfbbd241fec469 spanId=48a73756a917beb1
+2025-07-23 22:09:00.049 +07:00 [INF] App shutting down
+2025-07-23 22:09:15.285 +07:00 [INF] App initialized
+2025-07-23 22:09:16.985 +07:00 [ERR] Simulated exception occurred. traceId=d1564bff1979202a6216426b113c6ce9 spanId=aae75618dacff66d
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 165
-2025-07-23 15:11:50.489 +07:00 [INF] App shutting down
-2025-07-23 15:28:17.175 +07:00 [INF] App initialized
-2025-07-23 15:28:19.015 +07:00 [INF] StartApp button clicked. traceId=0d8dc9d7b2ffe28ee890c2c41f48c4a5 spanId=9c489c5731d27061
-2025-07-23 15:29:50.614 +07:00 [ERR] Simulated exception occurred. traceId=fbd9a7720d1a095a16cd1952df5101f8 spanId=6c373c1644fa25ee
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 172
+2025-07-23 22:09:25.065 +07:00 [INF] App shutting down
+2025-07-23 22:14:07.136 +07:00 [INF] App initialized
+2025-07-23 22:14:10.317 +07:00 [ERR] Simulated exception occurred. traceId=d97f303c7941b84ffded4f71062d6c73 spanId=0cb71bea0f93ac3f
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 168
-2025-07-23 15:39:17.897 +07:00 [INF] App shutting down
-2025-07-23 15:48:03.236 +07:00 [INF] App initialized
-2025-07-23 15:48:06.375 +07:00 [INF] StartApp button clicked. traceId=86122a0be99daba427794b09e85d7baf spanId=c4a45552a8662c24
-2025-07-23 15:49:19.760 +07:00 [INF] App shutting down
-2025-07-23 15:49:50.785 +07:00 [INF] App initialized
-2025-07-23 15:49:52.740 +07:00 [INF] StartApp button clicked. traceId=675a401a5c9c38d781a9cc851757a8c1 spanId=d01865979c6aa7b8
-2025-07-23 15:57:38.827 +07:00 [INF] App initialized
-2025-07-23 15:57:40.943 +07:00 [INF] StartApp button clicked. traceId=f60737bda52c1554317116f1cc8c741d spanId=97bad48e46297883
-2025-07-23 15:58:47.366 +07:00 [INF] App shutting down
-2025-07-23 16:03:51.046 +07:00 [INF] App initialized
-2025-07-23 16:03:53.877 +07:00 [ERR] Simulated exception occurred. traceId=d608c00208a13f8688027006eff21460 spanId=75f8788432341816
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 172
+2025-07-23 22:14:26.905 +07:00 [INF] StartApp button clicked. traceId=349070e733fbe23219b17f991874bdc7 spanId=8eaa79e5830a616b
+2025-07-23 22:14:40.009 +07:00 [INF] App initialized
+2025-07-23 22:14:42.292 +07:00 [INF] StartApp button clicked. traceId=837798e3ee07645e37f90606d897776e spanId=1942c85ad423f5e0
+2025-07-23 22:16:23.391 +07:00 [INF] App initialized
+2025-07-23 22:16:24.899 +07:00 [ERR] Simulated exception occurred. traceId=ae3f208930c7d8bda566a5e47885698f spanId=759b947af13a08a8
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 168
-2025-07-23 16:17:35.757 +07:00 [INF] App shutting down
-2025-07-23 16:17:55.114 +07:00 [INF] App initialized
-2025-07-23 16:17:57.103 +07:00 [ERR] Simulated exception occurred. traceId=6d41aa6e154f807aa67c756d36dae216 spanId=fdbb0116d6ecd6c5
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 172
+2025-07-23 22:18:10.264 +07:00 [INF] App initialized
+2025-07-23 22:18:12.682 +07:00 [ERR] Simulated exception occurred. traceId=8819a40ce1bc1c9cf2f702864e724514 spanId=df8b7932774d90df
 System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 168
-2025-07-23 16:28:10.870 +07:00 [INF] App initialized
-2025-07-23 16:28:13.916 +07:00 [INF] StartApp button clicked. traceId=d2e066817c1aacc2daf2cca0cf2bcc6a spanId=a1ed02ec101a10b8
-2025-07-23 16:33:44.998 +07:00 [INF] App initialized
-2025-07-23 16:33:46.865 +07:00 [ERR] Simulated exception occurred. traceId=a048063eef3791aa198c2a357c8f7f8e spanId=07b92ada58644335
-System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 168
-2025-07-23 16:34:05.857 +07:00 [INF] App shutting down
-2025-07-23 16:39:44.387 +07:00 [INF] App initialized
-2025-07-23 16:39:49.954 +07:00 [ERR] Simulated exception occurred. traceId=4fb2bb2eed8c454b09fcb23bc99ee9aa spanId=5bdcbf662fb0de0e
-System.InvalidOperationException: Simulated test error
-   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\admin\OneDrive\Máy tính\DemoApp\DemoApp\Form1.cs:line 168
+   at DemoApp.Form1.btnSimulateError_Click(Object sender, EventArgs e) in C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\Form1.cs:line 172
+2025-07-23 22:27:54.610 +07:00 [INF] App initialized
+2025-07-23 22:27:56.811 +07:00 [INF] StartApp button clicked. traceId=4f6f5718d0b08eec59cbbf78127013e9 spanId=b081d1b7cf1a363b
+2025-07-23 22:30:09.020 +07:00 [INF] Saved file at C:\Users\Admin\Desktop\trace-logs\DemoApp\DemoApp\bin\Debug\net8.0-windows\logs\test.txt in 0ms, traceId=e3345825f7fdf53840ccff7063234a78, spanId=14185256d006ff62

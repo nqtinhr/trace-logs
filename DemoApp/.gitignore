@@ -1,0 +1,52 @@
+# .NET build artifacts
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio files
+.vs/
+.vscode/
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Build results
+*.dll
+*.exe
+*.app
+*.pdb
+
+# Others
+*.log
+*.tmp
+*.cache
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Ignore test results
+TestResults/
+*.TestResults/
+
+# Ignore publish folder
+publish/
+
+# Ignore secrets
+secrets.json
+
+# Ignore Rider IDE files
+.idea/
+*.sln.iml
+
+.vs/

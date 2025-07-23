@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\admin\\OneDrive\\Máy tính\\DemoApp\\DemoApp\\DemoApp.csproj": {}
+    "C:\\Users\\Admin\\Desktop\\trace-logs\\DemoApp\\DemoApp\\DemoApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\admin\\OneDrive\\Máy tính\\DemoApp\\DemoApp\\DemoApp.csproj": {
+    "C:\\Users\\Admin\\Desktop\\trace-logs\\DemoApp\\DemoApp\\DemoApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\admin\\OneDrive\\Máy tính\\DemoApp\\DemoApp\\DemoApp.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\trace-logs\\DemoApp\\DemoApp\\DemoApp.csproj",
         "projectName": "DemoApp",
-        "projectPath": "C:\\Users\\admin\\OneDrive\\Máy tính\\DemoApp\\DemoApp\\DemoApp.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\admin\\OneDrive\\Máy tính\\DemoApp\\DemoApp\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Desktop\\trace-logs\\DemoApp\\DemoApp\\DemoApp.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Desktop\\trace-logs\\DemoApp\\DemoApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

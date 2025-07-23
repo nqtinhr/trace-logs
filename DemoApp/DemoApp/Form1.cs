@@ -27,12 +27,13 @@ namespace DemoApp
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("WinFormsApp")) // service.name
                 .AddSource("WinFormsAppTracer") // phải trùng với ActivitySource
                 .SetSampler(new AlwaysOnSampler())
-                .AddOtlpExporter(opt =>
-                {
-                    opt.Endpoint = new Uri("http://10.151.2.232:4318"); // Tempo OTLP HTTP endpoint
-                    opt.Protocol = OtlpExportProtocol.HttpProtobuf;
-                })
-                .AddConsoleExporter() // Debug ra terminal nếu cần
+                .AddProcessor(new SimpleActivityExportProcessor(new CustomJsonExporter("WinFormsApp", "WinFormsAppTracer")))
+                //.AddOtlpExporter(opt =>
+                //{
+                //    opt.Endpoint = new Uri("http://192.168.1.112:4318"); // Tempo OTLP HTTP endpoint
+                //    opt.Protocol = OtlpExportProtocol.HttpProtobuf;
+                //})
+                .AddConsoleExporter() // Debug ra terminal
                 .Build();
 
             // 2. Init Serilog (sau khi tracer setup)
@@ -42,7 +43,7 @@ namespace DemoApp
                 .Enrich.With<TraceContextEnricher>()
                 .Enrich.FromLogContext()
                 .WriteTo.GrafanaLoki(
-                    "http://10.151.2.232:3100",
+                    "http://192.168.1.112:3100",
                     labels: new List<LokiLabel>
                     {
                 new LokiLabel { Key = "app", Value = "WinFormsApp" },
@@ -69,11 +70,14 @@ namespace DemoApp
 
         private void btnStartApp_Click(object sender, EventArgs e)
         {
-            using var activity = ActivitySource.StartActivity("start_app", ActivityKind.Internal);
             _isAppStarted = true;
+            using var activity = ActivitySource.StartActivity("start_app", ActivityKind.Internal);
+            Thread.Sleep(20);
             Log.Information("StartApp button clicked. traceId={TraceId} spanId={SpanId}",
                 Activity.Current?.TraceId.ToHexString(),
                 Activity.Current?.SpanId.ToHexString());
+
+           _tracerProvider?.ForceFlush();
         }
 
 
