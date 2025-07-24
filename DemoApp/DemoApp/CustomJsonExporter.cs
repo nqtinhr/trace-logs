@@ -16,11 +16,11 @@ public class CustomJsonExporter : BaseExporter<Activity>
     private readonly string _sourceName;
     private readonly string _tempoEndpoint;
 
-    public CustomJsonExporter(string serviceName = "WinFormsApp", string sourceName = "WinFormsAppTracer", string? tempoEndpoint = null)
+    public CustomJsonExporter(string serviceName, string sourceName, string tempoEndpoint)
     {
         _serviceName = serviceName;
         _sourceName = sourceName;
-        _tempoEndpoint = tempoEndpoint ?? "http://192.168.1.112:4318/v1/traces";
+        _tempoEndpoint = tempoEndpoint;
     }
 
     public override ExportResult Export(in Batch<Activity> batch)

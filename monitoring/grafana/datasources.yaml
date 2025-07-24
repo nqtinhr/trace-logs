@@ -32,7 +32,7 @@ datasources:
         - name: traceID
           matcherRegex: "\"traceId\"\\s*:\\s*\"([a-f0-9]{32})\""
           datasourceUid: tempo
-          url: "/explore?left=[\"tempo\",{\"datasource\":\"tempo\",\"query\":\"trace_id = \\\"$${__value.raw}\\\"\",\"queryType\":\"traceql\"}]"
+          url: $${__value.raw}
 
   - name: Tempo
     type: tempo

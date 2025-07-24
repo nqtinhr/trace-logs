@@ -3,6 +3,7 @@ using OpenTelemetry.Context.Propagation;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Prometheus;
 using Serilog;
 using Serilog.Enrichers;
 using Serilog.Events;
@@ -16,7 +17,9 @@ namespace DemoApp
     {
         private bool _isAppStarted = false;
         private TracerProvider _tracerProvider;
+        private MetricServer _metricServer;
         private static readonly ActivitySource ActivitySource = new("WinFormsAppTracer");
+        private string tempoEndpoint = "http://10.151.2.232:4318/v1/traces";
 
         public Form1()
         {
@@ -27,10 +30,10 @@ namespace DemoApp
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("WinFormsApp")) // service.name
                 .AddSource("WinFormsAppTracer") // phải trùng với ActivitySource
                 .SetSampler(new AlwaysOnSampler())
-                .AddProcessor(new SimpleActivityExportProcessor(new CustomJsonExporter("WinFormsApp", "WinFormsAppTracer")))
+                .AddProcessor(new SimpleActivityExportProcessor(new CustomJsonExporter("WinFormsApp", "WinFormsAppTracer", tempoEndpoint)))
                 //.AddOtlpExporter(opt =>
                 //{
-                //    opt.Endpoint = new Uri("http://192.168.1.112:4318"); // Tempo OTLP HTTP endpoint
+                //    opt.Endpoint = new Uri("http://10.151.2.232:4318"); // Tempo OTLP HTTP endpoint
                 //    opt.Protocol = OtlpExportProtocol.HttpProtobuf;
                 //})
                 .AddConsoleExporter() // Debug ra terminal
@@ -43,7 +46,7 @@ namespace DemoApp
                 .Enrich.With<TraceContextEnricher>()
                 .Enrich.FromLogContext()
                 .WriteTo.GrafanaLoki(
-                    "http://192.168.1.112:3100",
+                    "http://10.151.2.232:3100",
                     labels: new List<LokiLabel>
                     {
                 new LokiLabel { Key = "app", Value = "WinFormsApp" },
@@ -54,6 +57,9 @@ namespace DemoApp
                 )
                 .WriteTo.File("logs\\app.log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
+
+            _metricServer = new MetricServer(port: 1234);
+            _metricServer.Start();
 
             // 3. Log thử nghiệm sau khi setup
             Log.Information("App initialized");
@@ -72,12 +78,9 @@ namespace DemoApp
         {
             _isAppStarted = true;
             using var activity = ActivitySource.StartActivity("start_app", ActivityKind.Internal);
-            Thread.Sleep(20);
             Log.Information("StartApp button clicked. traceId={TraceId} spanId={SpanId}",
                 Activity.Current?.TraceId.ToHexString(),
                 Activity.Current?.SpanId.ToHexString());
-
-           _tracerProvider?.ForceFlush();
         }
 
 

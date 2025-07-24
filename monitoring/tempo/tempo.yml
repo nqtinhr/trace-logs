@@ -1,31 +1,31 @@
 server:
-  http_listen_port: 3200
-  log_level: info 
+  http_listen_port: 3200         # Cổng HTTP mà Tempo server lắng nghe
+  log_level: info                # Mức độ log (info, debug, warn, error)
 
 distributor:
   receivers:
     otlp:
       protocols:
         http:
-          endpoint: 0.0.0.0:4318
+          endpoint: 0.0.0.0:4318 # Endpoint nhận trace OTLP qua HTTP
 
 ingester:
-  trace_idle_period: 10s
-  max_block_bytes: 1000000
-  max_block_duration: 5m
+  trace_idle_period: 10s         # Thời gian chờ trước khi đóng block trace nếu không có dữ liệu mới
+  max_block_bytes: 1000000       # Kích thước tối đa của một block trace (bytes)
+  max_block_duration: 5m         # Thời gian tối đa giữ block trace trước khi đóng
 
 compactor:
   compaction:
-    block_retention: 10m  
+    block_retention: 10m         # Thời gian giữ block trace trước khi xóa
 
-query_frontend: {}  # Bắt buộc để Tempo UI hoạt động
+query_frontend: {}               # Cấu hình frontend cho truy vấn (để trống dùng mặc định)
 
 storage:
   trace:
-    backend: local
+    backend: local               # Sử dụng lưu trữ local cho trace
     wal:
-      path: /tmp/tempo/wal
+      path: /tmp/tempo/wal       # Đường dẫn lưu Write-Ahead Log (WAL)
     local:
-      path: /tmp/tempo/blocks
+      path: /tmp/tempo/blocks    # Đường dẫn lưu các block trace
 
-overrides: {} 
+overrides: {}                    # Ghi đè cấu hình (để trống dùng mặc định)

@@ -1,7 +1,7 @@
 # .NET build artifacts
-bin/
-obj/
-out/
+.vs/
+[Bb]in/
+[Oo]bj/
 
 # User-specific files
 *.user
@@ -48,5 +48,3 @@ secrets.json
 # Ignore Rider IDE files
 .idea/
 *.sln.iml
-
-.vs/

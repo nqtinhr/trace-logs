@@ -36,3 +36,7 @@ scrape_configs:
         labels:
           hostname: Alertmanager
           type: monitoring
+
+  - job_name: 'winforms_app'
+    static_configs:
+      - targets: ['host.docker.internal:1234']
