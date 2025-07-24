@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace DemoApp
+namespace DemoApp2
 {
     internal static class Program
     {

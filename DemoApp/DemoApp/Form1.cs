@@ -7,7 +7,6 @@ using Prometheus;
 using Serilog;
 using Serilog.Enrichers;
 using Serilog.Events;
-using Serilog.Formatting.Compact;
 using Serilog.Sinks.Grafana.Loki;
 using System.Diagnostics;
 
@@ -18,8 +17,20 @@ namespace DemoApp
         private bool _isAppStarted = false;
         private TracerProvider _tracerProvider;
         private MetricServer _metricServer;
-        private static readonly ActivitySource ActivitySource = new("WinFormsAppTracer");
-        private string tempoEndpoint = "http://10.151.2.232:4318/v1/traces";
+        private const string serviceName = "WinFormsApp";
+        private const string activitySourceName = "WinFormsAppTracer";
+        private static readonly ActivitySource ActivitySource = new(activitySourceName);
+        private string lokiEndpoint = "http://192.168.1.112:3100";
+        private string tempoEndpoint = "http://192.168.1.112:4318/v1/traces";
+
+        private static readonly Counter LogCounter = Metrics.CreateCounter(
+        "app1_log_total",
+        "Tổng số log đã được ghi",
+        new CounterConfiguration
+        {
+            LabelNames = new[] { "level", "action" }
+        });
+
 
         public Form1()
         {
@@ -27,10 +38,10 @@ namespace DemoApp
 
             // 1. Init OpenTelemetry trước tiên
             _tracerProvider = Sdk.CreateTracerProviderBuilder()
-                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("WinFormsApp")) // service.name
-                .AddSource("WinFormsAppTracer") // phải trùng với ActivitySource
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName))
+                .AddSource(activitySourceName)
                 .SetSampler(new AlwaysOnSampler())
-                .AddProcessor(new SimpleActivityExportProcessor(new CustomJsonExporter("WinFormsApp", "WinFormsAppTracer", tempoEndpoint)))
+                .AddProcessor(new SimpleActivityExportProcessor(new CustomJsonExporter(serviceName, activitySourceName, tempoEndpoint)))
                 //.AddOtlpExporter(opt =>
                 //{
                 //    opt.Endpoint = new Uri("http://10.151.2.232:4318"); // Tempo OTLP HTTP endpoint
@@ -46,13 +57,13 @@ namespace DemoApp
                 .Enrich.With<TraceContextEnricher>()
                 .Enrich.FromLogContext()
                 .WriteTo.GrafanaLoki(
-                    "http://10.151.2.232:3100",
+                    lokiEndpoint,
                     labels: new List<LokiLabel>
                     {
-                new LokiLabel { Key = "app", Value = "WinFormsApp" },
-                new LokiLabel { Key = "host", Value = Environment.MachineName },
+                        new LokiLabel { Key = "app", Value = serviceName },
+                        new LokiLabel { Key = "host", Value = Environment.MachineName },
                     },
-                    propertiesAsLabels: new[] { "level", "traceId", "spanId", "activityId" },
+                    propertiesAsLabels: new[] { "level", "traceId", "spanId" },
                     textFormatter: new CustomJsonFormatter()
                 )
                 .WriteTo.File("logs\\app.log", rollingInterval: RollingInterval.Day)
@@ -69,7 +80,7 @@ namespace DemoApp
         {
             Log.Information("App shutting down");
 
-            System.Threading.Thread.Sleep(100);
+            Thread.Sleep(100);
             Log.CloseAndFlush();
             _tracerProvider?.Dispose();
         }
@@ -81,6 +92,7 @@ namespace DemoApp
             Log.Information("StartApp button clicked. traceId={TraceId} spanId={SpanId}",
                 Activity.Current?.TraceId.ToHexString(),
                 Activity.Current?.SpanId.ToHexString());
+            LogCounter.WithLabels("info", "start_app").Inc();
         }
 
 
@@ -104,6 +116,7 @@ namespace DemoApp
                 Log.Information("Loaded file '{Path}', length={Length}, traceId={TraceId}, spanId={SpanId}",
                     filePath, content.Length,
                     Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
+                LogCounter.WithLabels("info", "load_file").Inc();
 
                 activity?.SetTag("file.name", "test.txt");
                 activity?.SetTag("file.path", filePath);
@@ -115,6 +128,7 @@ namespace DemoApp
             {
                 Log.Error(ex, "Failed to load file. traceId={TraceId} spanId={SpanId}",
                     Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
+                LogCounter.WithLabels("error", "load_file").Inc();
 
                 activity?.SetStatus(ActivityStatusCode.Error);
                 activity?.SetTag("otel.status_description", ex.Message);
@@ -148,6 +162,7 @@ namespace DemoApp
                 Log.Information("Saved file at {Path} in {Ms}ms, traceId={TraceId}, spanId={SpanId}",
                     filePath, sw.ElapsedMilliseconds,
                     Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
+                LogCounter.WithLabels("info", "save_file").Inc();
 
                 activity?.SetTag("file.path", filePath);
                 activity?.SetTag("duration_ms", sw.ElapsedMilliseconds);
@@ -158,6 +173,7 @@ namespace DemoApp
             {
                 Log.Error(ex, "Lỗi khi lưu file. traceId={TraceId} spanId={SpanId}",
                     Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
+                LogCounter.WithLabels("error", "save_file").Inc();
 
                 activity?.SetStatus(ActivityStatusCode.Error);
                 activity?.SetTag("otel.status_description", ex.Message);
@@ -184,6 +200,7 @@ namespace DemoApp
                     "Simulated exception occurred. traceId={TraceId} spanId={SpanId}",
                     Activity.Current?.TraceId.ToHexString(),
                     Activity.Current?.SpanId.ToHexString());
+                LogCounter.WithLabels("error", "simulate_error").Inc();
             }
         }
 
@@ -196,6 +213,7 @@ namespace DemoApp
 
             Log.Information("Trace-only span sent manually. traceId={TraceId} spanId={SpanId}",
                 Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
+            LogCounter.WithLabels("info", "trace_only").Inc();
         }
     }
 }

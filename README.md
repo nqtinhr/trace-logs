@@ -34,3 +34,6 @@
   ]
 }
 ```
+netsh http add urlacl url=http://+:1234/ user="TỉnhNguyễn"
+
+netsh http delete urlacl url=http://+:1234/

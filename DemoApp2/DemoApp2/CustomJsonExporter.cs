@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using OpenTelemetry;
 using OpenTelemetry.Trace;
 
-namespace DemoApp
+namespace DemoApp2
 {
     public class CustomJsonExporter : BaseExporter<Activity>
     {
