@@ -20,8 +20,8 @@ namespace DemoApp
         private const string serviceName = "WinFormsApp";
         private const string activitySourceName = "WinFormsAppTracer";
         private static readonly ActivitySource ActivitySource = new(activitySourceName);
-        private string lokiEndpoint = "http://192.168.1.112:3100";
-        private string tempoEndpoint = "http://192.168.1.112:4318/v1/traces";
+        private string lokiEndpoint = "http://10.151.2.232:3100";
+        private string tempoEndpoint = "http://10.151.2.232:4318/v1/traces";
 
         private static readonly Counter LogCounter = Metrics.CreateCounter(
         "app1_log_total",

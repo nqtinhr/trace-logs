@@ -19,8 +19,8 @@ namespace DemoApp2
         private const string activitySourceName = "WinFormsApp2Tracer";
         private static readonly ActivitySource ActivitySource = new(activitySourceName);
         private static readonly Random _random = new();
-        private string lokiEndpoint = "http://192.168.1.112:3100";
-        private string tempoEndpoint = "http://192.168.1.112:4318/v1/traces";
+        private string lokiEndpoint = "http://10.151.2.232:3100";
+        private string tempoEndpoint = "http://10.151.2.232:4318/v1/traces";
         private static readonly Counter LogCounter = Metrics.CreateCounter(
             "app2_log_total",
             "Tổng số log đã được ghi",
