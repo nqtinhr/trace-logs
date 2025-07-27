@@ -40,7 +40,13 @@ scrape_configs:
   - job_name: 'winforms_app1'
     static_configs:
       - targets: ['host.docker.internal:1234']
+        labels:
+          hostname: WinFormsApp1
+          type: winforms
 
   - job_name: 'winforms_app2'
     static_configs:
       - targets: ['host.docker.internal:1235']
+        labels:
+          hostname: WinFormsApp2
+          type: winforms

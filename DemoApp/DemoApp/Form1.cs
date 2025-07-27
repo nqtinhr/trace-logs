@@ -20,15 +20,15 @@ namespace DemoApp
         private const string serviceName = "WinFormsApp";
         private const string activitySourceName = "WinFormsAppTracer";
         private static readonly ActivitySource ActivitySource = new(activitySourceName);
-        private string lokiEndpoint = "http://10.151.2.232:3100";
-        private string tempoEndpoint = "http://10.151.2.232:4318/v1/traces";
+        private string lokiEndpoint = "http://192.168.1.113:3100";
+        private string tempoEndpoint = "http://192.168.1.113:4318/v1/traces";
 
         private static readonly Counter LogCounter = Metrics.CreateCounter(
-        "app1_log_total",
+        "app_log_total",
         "Tổng số log đã được ghi",
         new CounterConfiguration
         {
-            LabelNames = new[] { "level", "action" }
+            LabelNames = new[] { "level" }
         });
 
 
@@ -92,7 +92,7 @@ namespace DemoApp
             Log.Information("StartApp button clicked. traceId={TraceId} spanId={SpanId}",
                 Activity.Current?.TraceId.ToHexString(),
                 Activity.Current?.SpanId.ToHexString());
-            LogCounter.WithLabels("info", "start_app").Inc();
+            LogCounter.WithLabels("info").Inc();
         }
 
 
@@ -116,7 +116,7 @@ namespace DemoApp
                 Log.Information("Loaded file '{Path}', length={Length}, traceId={TraceId}, spanId={SpanId}",
                     filePath, content.Length,
                     Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
-                LogCounter.WithLabels("info", "load_file").Inc();
+                LogCounter.WithLabels("info").Inc();
 
                 activity?.SetTag("file.name", "test.txt");
                 activity?.SetTag("file.path", filePath);
@@ -128,7 +128,7 @@ namespace DemoApp
             {
                 Log.Error(ex, "Failed to load file. traceId={TraceId} spanId={SpanId}",
                     Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
-                LogCounter.WithLabels("error", "load_file").Inc();
+                LogCounter.WithLabels("error").Inc();
 
                 activity?.SetStatus(ActivityStatusCode.Error);
                 activity?.SetTag("otel.status_description", ex.Message);
@@ -162,7 +162,7 @@ namespace DemoApp
                 Log.Information("Saved file at {Path} in {Ms}ms, traceId={TraceId}, spanId={SpanId}",
                     filePath, sw.ElapsedMilliseconds,
                     Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
-                LogCounter.WithLabels("info", "save_file").Inc();
+                LogCounter.WithLabels("info").Inc();
 
                 activity?.SetTag("file.path", filePath);
                 activity?.SetTag("duration_ms", sw.ElapsedMilliseconds);
@@ -173,7 +173,7 @@ namespace DemoApp
             {
                 Log.Error(ex, "Lỗi khi lưu file. traceId={TraceId} spanId={SpanId}",
                     Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
-                LogCounter.WithLabels("error", "save_file").Inc();
+                LogCounter.WithLabels("error").Inc();
 
                 activity?.SetStatus(ActivityStatusCode.Error);
                 activity?.SetTag("otel.status_description", ex.Message);
@@ -200,7 +200,7 @@ namespace DemoApp
                     "Simulated exception occurred. traceId={TraceId} spanId={SpanId}",
                     Activity.Current?.TraceId.ToHexString(),
                     Activity.Current?.SpanId.ToHexString());
-                LogCounter.WithLabels("error", "simulate_error").Inc();
+                LogCounter.WithLabels("error").Inc();
             }
         }
 
@@ -213,7 +213,7 @@ namespace DemoApp
 
             Log.Information("Trace-only span sent manually. traceId={TraceId} spanId={SpanId}",
                 Activity.Current?.TraceId.ToString(), Activity.Current?.SpanId.ToString());
-            LogCounter.WithLabels("info", "trace_only").Inc();
+            LogCounter.WithLabels("info").Inc();
         }
     }
 }

@@ -19,14 +19,14 @@ namespace DemoApp2
         private const string activitySourceName = "WinFormsApp2Tracer";
         private static readonly ActivitySource ActivitySource = new(activitySourceName);
         private static readonly Random _random = new();
-        private string lokiEndpoint = "http://10.151.2.232:3100";
-        private string tempoEndpoint = "http://10.151.2.232:4318/v1/traces";
+        private string lokiEndpoint = "http://192.168.1.113:3100";
+        private string tempoEndpoint = "http://192.168.1.113:4318/v1/traces";
         private static readonly Counter LogCounter = Metrics.CreateCounter(
-            "app2_log_total",
+            "app_log_total",
             "Tổng số log đã được ghi",
             new CounterConfiguration
             {
-                LabelNames = new[] { "level", "action" }
+                LabelNames = new[] { "level" }
             });
 
         public Form1()
@@ -93,14 +93,14 @@ namespace DemoApp2
                 Log.Information("Generated INFO log from button. traceId={TraceId} spanId={SpanId}",
                         Activity.Current?.TraceId.ToHexString(),
                         Activity.Current?.SpanId.ToHexString());
-                LogCounter.WithLabels("info", "generate_log_success").Inc();
+                LogCounter.WithLabels("info").Inc();
             }
             else
             {
                 Log.Error("Generated ERROR log from button. traceId={TraceId} spanId={SpanId}",
                         Activity.Current?.TraceId.ToHexString(),
                         Activity.Current?.SpanId.ToHexString());
-                LogCounter.WithLabels("error", "generate_log_fail").Inc();
+                LogCounter.WithLabels("error").Inc();
             }
         }
     }
