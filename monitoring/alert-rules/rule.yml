@@ -1,0 +1,13 @@
+groups:
+  - name: winforms_app_down
+    rules:
+      - alert: WinFormsAppDown
+        expr: up{type="winforms"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ứng dụng {{ $labels.job }} bị ngắt"
+          description: |
+            Prometheus không thể scrape từ {{ $labels.job }} ({{ $labels.instance }}) trong 1 phút.
+            Có thể ứng dụng đã bị down hoặc không phản hồi.
