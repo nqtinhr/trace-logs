@@ -37,7 +37,15 @@ scrape_configs:
           hostname: Alertmanager
           type: monitoring
 
+  - job_name: 'promtail'
+    static_configs:
+      - targets: ['promtail:9080']
+        labels:
+          hostname: Promtail
+          type: monitoring
+
   - job_name: 'winforms_app1'
+    metrics_path: /metrics
     static_configs:
       - targets: ['host.docker.internal:1234']
         labels:
@@ -45,6 +53,7 @@ scrape_configs:
           type: winforms
 
   - job_name: 'winforms_app2'
+    metrics_path: /metrics
     static_configs:
       - targets: ['host.docker.internal:1235']
         labels:

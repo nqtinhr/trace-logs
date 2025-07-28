@@ -1,12 +1,12 @@
 global:
-  resolve_timeout: 5m
+  resolve_timeout: 5m                # Thời gian chờ để Alertmanager đánh dấu alert là đã giải quyết
 
 route:
-  group_by: ["alertname"]
-  group_wait: 10s
-  group_interval: 10s
-  repeat_interval: 1h
-  receiver: "email"
+  group_by: ["alertname"]            # Gom nhóm các alert theo tên alert
+  group_wait: 10s                    # Thời gian chờ trước khi gửi nhóm alert đầu tiên
+  group_interval: 10s                # Khoảng thời gian giữa các lần gửi nhóm alert tiếp theo
+  repeat_interval: 9999h                # Khoảng thời gian lặp lại gửi alert nếu alert vẫn còn tồn tại
+  receiver: "email"                  # Tên receiver mặc định để gửi alert
 
 receivers:
   - name: "email"

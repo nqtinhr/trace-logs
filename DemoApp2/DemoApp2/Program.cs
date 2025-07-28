@@ -10,7 +10,7 @@ namespace DemoApp2
         [STAThread]
         static void Main()
         {
-            //AllocConsole(); // Bật console
+            AllocConsole(); // Bật console
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();

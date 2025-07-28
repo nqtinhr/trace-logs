@@ -10,4 +10,3 @@
 | ⛓ ThreadPool     | `system_runtime_threadpool_thread_count` | Số lượng thread trong ThreadPool         | `system_runtime_threadpool_thread_count{job=~"$job"}`                 |
 | 📦 Assembly      | `system_runtime_assembly_count`          | Số assembly được load                    | `system_runtime_assembly_count{job=~"$job"}`                          |
 | 🌐 HTTP (nếu có) | `system_net_http_requests_failed_total`  | Tổng số request bị lỗi                   | `rate(system_net_http_requests_failed_total{job=~"$job"}[5m])`        |
-

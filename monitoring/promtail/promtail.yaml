@@ -1,0 +1,29 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+  log_level: debug
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: winforms_app2
+    static_configs:
+      - targets: 
+          - localhost
+        labels:
+          app: WinFormsApp2
+          __path__: /var/log/app2-*.log
+    pipeline_stages:
+      - regex:
+          expression: 'traceId=(?P<trace_id>[a-zA-Z0-9]+).*spanId=(?P<span_id>[a-zA-Z0-9]+)'
+      - json:
+          expressions:
+            traceId: traceId
+            spanId: spanId
+      - labels:
+          trace_id: traceId
+          span_id: spanId

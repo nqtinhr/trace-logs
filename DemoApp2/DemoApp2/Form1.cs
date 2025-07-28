@@ -1,4 +1,5 @@
 ﻿using OpenTelemetry;
+using OpenTelemetry.Exporter;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Prometheus;
@@ -19,8 +20,8 @@ namespace DemoApp2
         private const string activitySourceName = "WinFormsApp2Tracer";
         private static readonly ActivitySource ActivitySource = new(activitySourceName);
         private static readonly Random _random = new();
-        private string lokiEndpoint = "http://192.168.1.113:3100";
-        private string tempoEndpoint = "http://192.168.1.113:4318/v1/traces";
+        private string lokiEndpoint = "http://10.151.2.232:3100";
+        private string tempoEndpoint = "http://10.151.2.232:4318/v1/traces";
         private static readonly Counter LogCounter = Metrics.CreateCounter(
             "app_log_total",
             "Tổng số log đã được ghi",
@@ -33,44 +34,40 @@ namespace DemoApp2
         {
             InitializeComponent();
 
-            // 1. Init OpenTelemetry trước tiên
+            // 1. Init OpenTelemetry - Send traces to Alloy
             _tracerProvider = Sdk.CreateTracerProviderBuilder()
-                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName))
-                .AddSource(activitySourceName) // phải trùng với ActivitySource
-                .SetSampler(new AlwaysOnSampler())
-                .AddProcessor(new SimpleActivityExportProcessor(new CustomJsonExporter(serviceName, activitySourceName, tempoEndpoint)))
-                //.AddOtlpExporter(opt =>
-                //{
-                //    opt.Endpoint = new Uri("http://10.151.2.232:4318"); // Tempo OTLP HTTP endpoint
-                //    opt.Protocol = OtlpExportProtocol.HttpProtobuf;
-                //})
-                .AddConsoleExporter() // Debug ra terminal
-                .Build();
+                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName))
+                 .AddSource(activitySourceName)
+                 .SetSampler(new AlwaysOnSampler())
+                 .AddOtlpExporter(opt =>
+                 {
+                     opt.Endpoint = new Uri("http://localhost:4318"); // Gửi trace tới Alloy
+                     opt.Protocol = OtlpExportProtocol.HttpProtobuf;
+                     opt.Headers = "Content-Type=application/x-protobuf"; // Ensure proper headers
+                 })
+                 .AddConsoleExporter() // Optional: hiển thị trace ra console
+                 .Build();
 
-            // 2. Init Serilog (sau khi tracer setup)
+            // 2. Init Serilog - Write to files for Promtail to collect
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .Enrich.With<ActivityIdEnricher>()
                 .Enrich.With<TraceContextEnricher>()
                 .Enrich.FromLogContext()
-                .WriteTo.GrafanaLoki(
-                    lokiEndpoint,
-                    labels: new List<LokiLabel>
-                    {
-                        new LokiLabel { Key = "app", Value = serviceName },
-                        new LokiLabel { Key = "host", Value = Environment.MachineName },
-                    },
-                    propertiesAsLabels: new[] { "level", "traceId", "spanId" },
-                    textFormatter: new CustomJsonFormatter()
-                )
-                .WriteTo.File("logs\\app.log", rollingInterval: RollingInterval.Day)
+                .WriteTo.File(
+                    formatter: new CustomJsonFormatter(),
+                    path: @"C:\Users\admin\OneDrive\Máy tính\trace-logs\monitoring\logs\app2-.log",
+                    rollingInterval: RollingInterval.Day,
+                    shared: true)
+                .WriteTo.Console() // Optional: xem log tại terminal
                 .CreateLogger();
 
+            // 3. Start MetricServer - Prometheus will scrape this port
             _metricServer = new MetricServer(port: 1235);
             _metricServer.Start();
 
-            // 3. Log thử nghiệm sau khi setup
-            Log.Information("App initialized");
+            // 4. Test log
+            Log.Information("App initialized with service name: {ServiceName}", serviceName);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

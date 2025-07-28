@@ -1,4 +1,24 @@
 services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - ./grafana/dashboards/:/var/lib/grafana/dashboards/
+    env_file:
+      - .grafana.secret
+    depends_on:
+      - prometheus
+      - loki
+      - tempo
+    networks:
+      - monitoring
+
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -13,22 +33,6 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.retention.time=15d # Giữ lại dữ liệu trong 15 ngày
       - --storage.tsdb.path=data/ # Lưu trữ dữ liệu trong thư mục data
-    networks:
-      - monitoring
-
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    volumes:
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-      - ./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
-      - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
-      - ./grafana/dashboards/:/var/lib/grafana/dashboards/
-    env_file:
-      - .grafana.secret
     networks:
       - monitoring
 
@@ -54,6 +58,20 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - monitoring
+
+  promtail:
+    image: grafana/promtail
+    container_name: promtail
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./promtail/promtail.yaml:/etc/promtail/config.yaml
+      - ./logs:/var/log/
+    command: -config.file=/etc/promtail/config.yaml
+    networks:
+      - monitoring
+    depends_on:
+      - loki
   
   tempo:
     image: grafana/tempo
@@ -68,6 +86,23 @@ services:
     networks:
       - monitoring
       
+  alloy:
+    image: grafana/alloy
+    container_name: alloy
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy
+      - ./alloy/alloy_data:/var/lib/alloy/data
+    ports:
+      - "12345:12345" # Alloy UI
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - /etc/alloy/config.alloy
+    depends_on:
+      - tempo
+    networks:
+      - monitoring
+
 networks:
   monitoring:
     external: true
