@@ -13,6 +13,7 @@ namespace DemoApp2
             {
                 ["timestamp"] = logEvent.Timestamp.ToString("O"), // Thay @t bằng timestamp
                 ["message"] = logEvent.MessageTemplate.Render(logEvent.Properties), // Thay @mt bằng message
+                ["level"] = logEvent.Level.ToString().ToLowerInvariant(),
                 ["traceId"] = logEvent.Properties.TryGetValue("TraceId", out var traceIdProp)
                     ? traceIdProp.ToString().Trim('"')
                     : (Activity.Current?.TraceId.ToString() ?? null),
@@ -30,7 +31,7 @@ namespace DemoApp2
                 json["exception"] = logEvent.Exception.ToString();
             }
 
-            output.WriteLine(json.ToString());
+            output.WriteLine(json.ToString(Newtonsoft.Json.Formatting.None));
         }
     }
 }

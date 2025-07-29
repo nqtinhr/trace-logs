@@ -41,9 +41,8 @@ namespace DemoApp2
                  .SetSampler(new AlwaysOnSampler())
                  .AddOtlpExporter(opt =>
                  {
-                     opt.Endpoint = new Uri("http://localhost:4318"); // Gửi trace tới Alloy
+                     opt.Endpoint = new Uri("http://host.docker.internal:4318"); // Gửi trace tới Alloy
                      opt.Protocol = OtlpExportProtocol.HttpProtobuf;
-                     opt.Headers = "Content-Type=application/x-protobuf"; // Ensure proper headers
                  })
                  .AddConsoleExporter() // Optional: hiển thị trace ra console
                  .Build();
@@ -94,10 +93,17 @@ namespace DemoApp2
             }
             else
             {
-                Log.Error("Generated ERROR log from button. traceId={TraceId} spanId={SpanId}",
+                try
+                {
+                    throw new InvalidOperationException("Something went wrong while generating log!");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Generated ERROR log from button. traceId={TraceId} spanId={SpanId}",
                         Activity.Current?.TraceId.ToHexString(),
                         Activity.Current?.SpanId.ToHexString());
-                LogCounter.WithLabels("error").Inc();
+                    LogCounter.WithLabels("error").Inc();
+                }
             }
         }
     }

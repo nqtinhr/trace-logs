@@ -12,18 +12,22 @@ clients:
 scrape_configs:
   - job_name: winforms_app2
     static_configs:
-      - targets: 
+      - targets:
           - localhost
         labels:
           app: WinFormsApp2
           __path__: /var/log/app2-*.log
     pipeline_stages:
-      - regex:
-          expression: 'traceId=(?P<trace_id>[a-zA-Z0-9]+).*spanId=(?P<span_id>[a-zA-Z0-9]+)'
       - json:
           expressions:
-            traceId: traceId
-            spanId: spanId
+            timestamp:
+            message:
+            level:
+            traceId:
+            spanId:
+            activityId:
+            exception:
       - labels:
+          level: level
           trace_id: traceId
           span_id: spanId

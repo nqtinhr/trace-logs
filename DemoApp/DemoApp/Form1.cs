@@ -95,7 +95,6 @@ namespace DemoApp
             LogCounter.WithLabels("info").Inc();
         }
 
-
         private void btnLoadFile_Click(object sender, EventArgs e)
         {
             if (!_isAppStarted)
